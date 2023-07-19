@@ -6,6 +6,7 @@ from src.config import DEBUG, API_VERSION
 from src.employees.router import router as employees_router
 from src.categories.router import router as categories_router
 from src.customers.router import router as customers_router
+from src.orders.router import router as orders_router
 
 app = FastAPI(
     title="Northwind",
@@ -22,3 +23,4 @@ async def redirect():
 app.include_router(employees_router)
 app.include_router(categories_router)
 app.include_router(customers_router)
+app.include_router(orders_router)
