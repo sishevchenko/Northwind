@@ -27,3 +27,13 @@ class Employees(BaseMeta):
     notes: Mapped[str] = mapped_column(TEXT, nullable=True)
     reports_to: Mapped[int] = mapped_column(SmallInteger, nullable=True)
     photo_path: Mapped[str] = mapped_column(String(length=255), nullable=True)
+
+
+# --
+# -- Name: employee_territories; Type: TABLE; Schema: public; Owner: -; Tablespace:
+# --
+#
+# CREATE TABLE employee_territories (
+#     employee_id smallint NOT NULL,
+#     territory_id character varying(20) NOT NULL
+# );
