@@ -7,7 +7,7 @@ from src.db import BaseMeta
 class Customers(BaseMeta):
     __tablename__ = "customers"
 
-    customer_id: Mapped[str] = mapped_column(String(length=5), primary_key=True, nullable=False)
+    customer_id: Mapped[str] = mapped_column(String, primary_key=True, nullable=False)
     company_name: Mapped[str] = mapped_column(String(length=40), nullable=False)
     contact_name: Mapped[str] = mapped_column(String(length=30), nullable=True)
     contact_title: Mapped[str] = mapped_column(String(length=30), nullable=True)
