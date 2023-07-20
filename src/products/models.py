@@ -3,6 +3,7 @@ from sqlalchemy.orm import Mapped, mapped_column
 
 from src.categories.models import Categories
 from src.db import BaseMeta
+from src.suppliers.models import Suppliers
 
 
 class Products(BaseMeta):

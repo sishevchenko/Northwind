@@ -31,8 +31,10 @@ class Orders(BaseMeta):
 class OrderDetails(BaseMeta):
     __tablename__ = "order_details"
 
-    order_id: Mapped[int] = mapped_column(ForeignKey(Orders.order_id, ondelete="CASCADE"), nullable=False)
-    product_id: Mapped[int] = mapped_column(ForeignKey(Products.product_id, ondelete="CASCADE"), nullable=False)
+    order_id: Mapped[int] = mapped_column(ForeignKey(Orders.order_id, ondelete="CASCADE"), primary_key=True,
+                                          nullable=False)
+    product_id: Mapped[int] = mapped_column(ForeignKey(Products.product_id, ondelete="CASCADE"), primary_key=True,
+                                            nullable=False)
     unit_price: Mapped[float] = mapped_column(REAL, nullable=False)
     quantity: Mapped[float] = mapped_column(SmallInteger, nullable=False)
     discount: Mapped[float] = mapped_column(REAL, nullable=False)
