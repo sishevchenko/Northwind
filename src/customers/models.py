@@ -18,23 +18,3 @@ class Customers(BaseMeta):
     country: Mapped[str] = mapped_column(String(length=15), nullable=True)
     phone: Mapped[str] = mapped_column(String(length=24), nullable=True)
     fax: Mapped[str] = mapped_column(String(length=24), nullable=True)
-
-
-# --
-# -- Name: customer_customer_demo; Type: TABLE; Schema: public; Owner: -; Tablespace:
-# --
-#
-# CREATE TABLE customer_customer_demo (
-#     customer_id bpchar NOT NULL,
-#     customer_type_id bpchar NOT NULL
-# );
-#
-#
-# --
-# -- Name: customer_demographics; Type: TABLE; Schema: public; Owner: -; Tablespace:
-# --
-#
-# CREATE TABLE customer_demographics (
-#     customer_type_id bpchar NOT NULL,
-#     customer_desc text
-# );
