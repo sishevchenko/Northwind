@@ -10,7 +10,7 @@ class CategoriesCreate(BaseModel):
 
 
 class CategoriesUpdate(BaseModel):
-    id: int
+    category_id: int
     category_name: Optional[str]
     description: Optional[str]
     picture: Optional[bytes]

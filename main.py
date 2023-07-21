@@ -11,6 +11,7 @@ from src.products.router import router as products_router
 from src.region.router import router as region_router
 from src.shippers.router import router as shippers_router
 from src.suppliers.router import router as suppliers_router
+from src.order_details.router import router as order_details_router
 
 app = FastAPI(
     title="Northwind",
@@ -27,6 +28,7 @@ async def redirect():
 app.include_router(employees_router)
 app.include_router(categories_router)
 app.include_router(customers_router)
+app.include_router(order_details_router)
 app.include_router(orders_router)
 app.include_router(products_router)
 app.include_router(region_router)
