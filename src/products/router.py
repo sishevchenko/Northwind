@@ -37,4 +37,3 @@ async def update(new_stmt: ProductsUpdate, session: AsyncSession = Depends(get_a
 @router.delete("/delete")
 async def delete(pk: int, session: AsyncSession = Depends(get_async_session)):
     return await Controller.delete(table_name=Products, pk_attribute=Products.product_id, pk=pk, session=session)
-
