@@ -8,18 +8,33 @@ from pydantic import BaseModel
 class Controller:
     @staticmethod
     async def get_one(table_name: DeclarativeMeta, pk_attribute: Mapped, pk: int, session: Session | AsyncSession):
-        query = select(table_name).where(pk_attribute == pk)
-        res = await session.execute(query)
-        return res.scalars().all()
+        try:
+            query = select(table_name).where(pk_attribute == pk)
+            res = await session.execute(query)
+            return res.scalars().all()
+        except Exception as ex:
+            raise HTTPException(status_code=200, detail={
+                "status": "error",
+                "data": None,
+                "details": ex
+            })
 
     @staticmethod
     async def get_all(table_name: DeclarativeMeta, session: Session | AsyncSession):
-        query = select(table_name)
-        res = await session.execute(query)
-        return res.scalars().all()
+        try:
+            query = select(table_name)
+            res = await session.execute(query)
+            return res.scalars().all()
+        except Exception as ex:
+            raise HTTPException(status_code=200, detail={
+                "status": "error",
+                "data": None,
+                "details": ex
+            })
 
     @staticmethod
-    async def create(table_name: DeclarativeMeta, value: BaseModel, session: Session | AsyncSession, pk_attribute: str = None):
+    async def create(table_name: DeclarativeMeta, value: BaseModel, session: Session | AsyncSession,
+                     pk_attribute: str = None):
         try:
             new_categories = value.model_dump()
             if isinstance(pk_attribute, str):
@@ -29,7 +44,7 @@ class Controller:
             stmt = insert(table_name).values(**new_categories)
             await session.execute(stmt)
             await session.commit()
-            return dict(status_code=201)
+            return dict(status_code=201, stmt=new_categories)
         except Exception as ex:
             raise HTTPException(status_code=200, detail={
                 "status": "error",
@@ -55,7 +70,14 @@ class Controller:
 
     @staticmethod
     async def delete(table_name: DeclarativeMeta, pk_attribute: Mapped, pk: int, session: Session | AsyncSession):
-        stmt = delete(table_name).where(pk_attribute == pk).returning(table_name)
-        await session.execute(stmt)
-        await session.commit()
-        return {"ok"}
+        try:
+            stmt = delete(table_name).where(pk_attribute == pk).returning(table_name)
+            await session.execute(stmt)
+            await session.commit()
+            return {"ok"}
+        except Exception as ex:
+            raise HTTPException(status_code=200, detail={
+                "status": "error",
+                "data": None,
+                "details": ex
+            })
