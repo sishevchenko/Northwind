@@ -9,7 +9,7 @@ from src.db import BaseMeta
 class Employees(BaseMeta):
     __tablename__ = "employees"
 
-    employee_id: Mapped[int] = mapped_column(SmallInteger, primary_key=True, nullable=False, autoincrement=True)
+    employee_id: Mapped[int] = mapped_column(SmallInteger, primary_key=True, nullable=False)
     last_name: Mapped[str] = mapped_column(String(length=20), nullable=False)
     first_name: Mapped[str] = mapped_column(String(length=10), nullable=False)
     title: Mapped[str] = mapped_column(String(length=30), nullable=True)
