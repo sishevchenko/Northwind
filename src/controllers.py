@@ -1,5 +1,5 @@
 from fastapi import HTTPException
-from sqlalchemy import select, func, insert, delete, update
+from sqlalchemy import func, select, insert, update, delete
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import Session, DeclarativeMeta, Mapped
 from pydantic import BaseModel
