@@ -10,14 +10,14 @@ class OrdersCreate(BaseModel):
     order_date: date = date.today()
     required_date: date = date.today()
     shipped_date: date = date.today()
-    ship_via: Optional[int] = None
-    freight: Optional[float] = None
-    ship_name: Optional[str] = None
-    ship_address: Optional[str] = None
-    ship_city: Optional[str] = None
-    ship_region: Optional[str] = None
-    ship_postal_code: Optional[str] = None
-    ship_country: Optional[str] = None
+    ship_via: Optional[int | None] = None
+    freight: Optional[float | None] = None
+    ship_name: Optional[str | None] = None
+    ship_address: Optional[str | None] = None
+    ship_city: Optional[str | None] = None
+    ship_region: Optional[str | None] = None
+    ship_postal_code: Optional[str | None] = None
+    ship_country: Optional[str | None] = None
 
 
 class OrdersUpdate(BaseModel):
@@ -27,11 +27,11 @@ class OrdersUpdate(BaseModel):
     order_date: date = date.today()
     required_date: date = date.today()
     shipped_date: date = date.today()
-    ship_via: Optional[int]
-    freight: Optional[float]
-    ship_name: Optional[str]
-    ship_address: Optional[str]
-    ship_city: Optional[str]
-    ship_region: Optional[str]
-    ship_postal_code: Optional[str]
-    ship_country: Optional[str]
+    ship_via: Optional[int | None]
+    freight: Optional[float | None]
+    ship_name: Optional[str | None]
+    ship_address: Optional[str | None]
+    ship_city: Optional[str | None]
+    ship_region: Optional[str | None]
+    ship_postal_code: Optional[str | None]
+    ship_country: Optional[str | None]

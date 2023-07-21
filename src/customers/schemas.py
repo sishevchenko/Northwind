@@ -32,15 +32,15 @@ class CustomersCreate(BaseModel):
 class CustomersUpdate(BaseModel):
     customer_id: str
     company_name: Optional[str]
-    contact_name: Optional[str]
-    contact_title: Optional[str]
-    address: Optional[str]
-    city: Optional[str]
-    region: Optional[str]
-    postal_code: Optional[str]
-    country: Optional[str]
-    phone: Optional[str]
-    fax: Optional[str]
+    contact_name: Optional[str | None]
+    contact_title: Optional[str | None]
+    address: Optional[str | None]
+    city: Optional[str | None]
+    region: Optional[str | None]
+    postal_code: Optional[str | None]
+    country: Optional[str | None]
+    phone: Optional[str | None]
+    fax: Optional[str | None]
 
     @field_validator("phone")
     def is_valid_phone(cls, value: str):

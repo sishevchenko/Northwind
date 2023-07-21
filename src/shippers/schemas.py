@@ -5,10 +5,10 @@ from pydantic import BaseModel
 
 class ShippersCreate(BaseModel):
     company_name: str
-    phone: Optional[str] = None
+    phone: Optional[str | None] = None
 
 
 class ShippersUpdate(BaseModel):
     shipper_id: int
-    company_name: Optional[str]
-    phone: Optional[str]
+    company_name: Optional[str | None]
+    phone: Optional[str | None]
