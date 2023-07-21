@@ -1,14 +1,16 @@
+from typing import Optional
+
 from pydantic import BaseModel
 
 
 class CategoriesCreate(BaseModel):
     category_name: str
-    description: str | None
-    picture: bytes | None
+    description: Optional[str] = None
+    picture: Optional[bytes] = None
 
 
 class CategoriesUpdate(BaseModel):
     id: int
-    category_name: str
-    description: str | None
-    picture: bytes | None
+    category_name: Optional[str]
+    description: Optional[str]
+    picture: Optional[bytes]
