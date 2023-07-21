@@ -12,22 +12,22 @@ router = APIRouter(
 )
 
 
-@router.get("/")
+@router.get("/get_all")
 async def get_all_categories(session: AsyncSession = Depends(get_async_session)):
     return await Controller.get_all(table_name=Categories, session=session)
 
 
-@router.get("/{pk}")
+@router.get("/get/{pk}")
 async def get_category(pk: int, session: AsyncSession = Depends(get_async_session)):
     return await Controller.get_one(table_name=Categories, pk_attribute=Categories.category_id, pk=pk, session=session)
 
 
-@router.post("/")
+@router.post("/create")
 async def categories_create(new_categories: CategoriesCreate, session: AsyncSession = Depends(get_async_session)):
     return await Controller.create(table_name=Categories, pk_attribute=Categories.category_id,
                                    value=new_categories, session=session)
 
 
-@router.delete("/")
+@router.delete("/delete/{pk}")
 async def categories_delete(pk: int, session: AsyncSession = Depends(get_async_session)):
     return await Controller.delete(table_name=Categories, pk_attribute=Categories.category_id, pk=pk, session=session)
