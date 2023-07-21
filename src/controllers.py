@@ -53,11 +53,11 @@ class Controller:
             })
 
     @staticmethod
-    async def update(table_name: DeclarativeMeta, pk_attribute: Mapped, pk: int, value: BaseModel,
+    async def update(table_name: DeclarativeMeta, pk_attribute: Mapped, value: BaseModel,
                      session: Session | AsyncSession):
         try:
             new_categories = value.model_dump()
-            stmt = update(table_name).where(pk_attribute == pk).values(**new_categories)
+            stmt = update(table_name).where(pk_attribute == new_categories["id"]).values(**new_categories)
             await session.execute(stmt)
             await session.commit()
             return dict(status_code=201)

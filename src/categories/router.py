@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.categories.models import Categories
-from src.categories.schemas import CategoriesCreate
+from src.categories.schemas import CategoriesCreate, CategoriesUpdate
 from src.controllers import Controller
 from src.db import get_async_session
 
@@ -26,6 +26,12 @@ async def get_category(pk: int, session: AsyncSession = Depends(get_async_sessio
 async def categories_create(new_categories: CategoriesCreate, session: AsyncSession = Depends(get_async_session)):
     return await Controller.create(table_name=Categories, pk_attribute=Categories.category_id,
                                    value=new_categories, session=session)
+
+
+@router.post("/update")
+async def categories_update(new_categories: CategoriesUpdate, session: AsyncSession = Depends(get_async_session)):
+    return Controller.update(table_name=Categories, pk_attribute=Categories.category_id, value=new_categories,
+                             session=session)
 
 
 @router.delete("/delete/{pk}")
