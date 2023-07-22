@@ -36,14 +36,14 @@ class Controller:
 
     @staticmethod
     async def create(table_name: DeclarativeMeta, value: BaseModel, session: Session | AsyncSession,
-                     pk_attribute: str | None = None) -> dict:
+                     pk_attribute_key: str | None = None) -> dict:
         """"""
         try:
             new_categories = value.model_dump()
-            if isinstance(pk_attribute, str):
+            if isinstance(pk_attribute_key, str):
                 last_id = select(func.count()).select_from(table_name)
                 count = await session.execute(last_id)
-                new_categories[pk_attribute] = count.scalar() + 1
+                new_categories[pk_attribute_key] = count.scalar() + 1
             stmt = insert(table_name).values(**new_categories).returning(table_name)
             obj = await session.execute(stmt)
             await session.commit()

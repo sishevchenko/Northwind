@@ -24,7 +24,7 @@ async def get_one(pk: int, session: AsyncSession = Depends(get_async_session)):
 
 @router.post("/create")
 async def create(new_stmt: OrdersCreate, session: AsyncSession = Depends(get_async_session)):
-    return await Controller.create(table_name=Orders, pk_attribute=Orders.order_id.key,
+    return await Controller.create(table_name=Orders, pk_attribute_key=Orders.order_id.key,
                                    value=new_stmt, session=session)
 
 

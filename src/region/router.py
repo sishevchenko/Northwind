@@ -24,7 +24,7 @@ async def get_one(pk: int, session: AsyncSession = Depends(get_async_session)):
 
 @router.post("/create")
 async def create(new_stmt: RegionCreate, session: AsyncSession = Depends(get_async_session)):
-    return await Controller.create(table_name=Region, pk_attribute=Region.region_id.key,
+    return await Controller.create(table_name=Region, pk_attribute_key=Region.region_id.key,
                                    value=new_stmt, session=session)
 
 
