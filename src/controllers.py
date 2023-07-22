@@ -6,6 +6,8 @@ from pydantic import BaseModel
 
 
 class Controller:
+    """"""
+
     @staticmethod
     async def get_one(table_name: DeclarativeMeta, pk_attribute: Mapped, pk: int, session: Session | AsyncSession):
         """"""
@@ -39,12 +41,12 @@ class Controller:
                      pk_attribute_key: str | None = None) -> dict:
         """"""
         try:
-            new_categories = value.model_dump()
+            new_obj = value.model_dump()
             if isinstance(pk_attribute_key, str):
                 last_id = select(func.count()).select_from(table_name)
                 count = await session.execute(last_id)
-                new_categories[pk_attribute_key] = count.scalar() + 1
-            stmt = insert(table_name).values(**new_categories).returning(table_name)
+                new_obj[pk_attribute_key] = count.scalar() + 1
+            stmt = insert(table_name).values(**new_obj).returning(table_name)
             obj = await session.execute(stmt)
             await session.commit()
             return dict(status_code=201, obj=obj.scalar())
@@ -60,8 +62,8 @@ class Controller:
                      session: Session | AsyncSession) -> dict:
         """"""
         try:
-            new_categories = value.model_dump()
-            stmt = update(table_name).where(pk_attribute == new_categories[pk_attribute.key]).values(**new_categories).returning(
+            new_obj = value.model_dump()
+            stmt = update(table_name).where(pk_attribute == new_obj[pk_attribute.key]).values(**new_obj).returning(
                 table_name)
             obj = await session.execute(stmt)
             await session.commit()
