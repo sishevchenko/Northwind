@@ -22,16 +22,16 @@ async def get_one(pk: int, session: AsyncSession = Depends(get_async_session)):
     return await Controller.get_one(table_name=Region, pk_attribute=Region.region_id, pk=pk, session=session)
 
 
-@router.post("/create", response_model=RegionCreate)
+@router.post("/create")
 async def create(new_stmt: RegionCreate, session: AsyncSession = Depends(get_async_session)):
-    return await Controller.create(table_name=Region, pk_attribute=Region.region_id,
+    return await Controller.create(table_name=Region, pk_attribute=Region.region_id.key,
                                    value=new_stmt, session=session)
 
 
-@router.post("/update", response_model=RegionUpdate)
+@router.post("/update")
 async def update(new_stmt: RegionUpdate, session: AsyncSession = Depends(get_async_session)):
-    return Controller.update(table_name=Region, pk_attribute=Region.region_id, value=new_stmt,
-                             session=session)
+    return await Controller.update(table_name=Region, pk_attribute=Region.region_id, value=new_stmt,
+                                   session=session)
 
 
 @router.delete("/delete")

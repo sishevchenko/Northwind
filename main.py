@@ -25,9 +25,9 @@ async def redirect():
     return fastapi.responses.RedirectResponse(
         "/docs#")
 
-app.include_router(employees_router)
 app.include_router(categories_router)
 app.include_router(customers_router)
+app.include_router(employees_router)
 app.include_router(order_details_router)
 app.include_router(orders_router)
 app.include_router(products_router)

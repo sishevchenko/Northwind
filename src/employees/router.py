@@ -22,15 +22,15 @@ async def get_one(pk: int, session: AsyncSession = Depends(get_async_session)):
     return await Controller.get_one(table_name=Employees, pk_attribute=Employees.employee_id, pk=pk, session=session)
 
 
-@router.post("/create", response_model=EmployeesCreate)
+@router.post("/create")
 async def create(new_stmt: EmployeesCreate, session: AsyncSession = Depends(get_async_session)):
     return await Controller.create(table_name=Employees, pk_attribute=Employees.employee_id.key,
                                    value=new_stmt, session=session)
 
 
-@router.post("/update", response_model=EmployeesUpdate)
+@router.post("/update")
 async def update(new_stmt: EmployeesUpdate, session: AsyncSession = Depends(get_async_session)):
-    return Controller.update(table_name=Employees, pk_attribute=Employees.employee_id, value=new_stmt,
+    return await Controller.update(table_name=Employees, pk_attribute=Employees.employee_id, value=new_stmt,
                              session=session)
 
 

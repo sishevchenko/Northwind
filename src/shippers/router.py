@@ -22,16 +22,16 @@ async def get_one(pk: int, session: AsyncSession = Depends(get_async_session)):
     return await Controller.get_one(table_name=Shippers, pk_attribute=Shippers.shipper_id, pk=pk, session=session)
 
 
-@router.post("/create", response_model=ShippersCreate)
+@router.post("/create")
 async def create(new_stmt: ShippersCreate, session: AsyncSession = Depends(get_async_session)):
-    return await Controller.create(table_name=Shippers, pk_attribute=Shippers.shipper_id,
+    return await Controller.create(table_name=Shippers, pk_attribute=Shippers.shipper_id.key,
                                    value=new_stmt, session=session)
 
 
-@router.post("/update", response_model=ShippersUpdate)
+@router.post("/update")
 async def update(new_stmt: ShippersUpdate, session: AsyncSession = Depends(get_async_session)):
-    return Controller.update(table_name=Shippers, pk_attribute=Shippers.shipper_id, value=new_stmt,
-                             session=session)
+    return await Controller.update(table_name=Shippers, pk_attribute=Shippers.shipper_id, value=new_stmt,
+                                   session=session)
 
 
 @router.delete("/delete")
