@@ -18,7 +18,7 @@ async def get_all(session: AsyncSession = Depends(get_async_session)):
 
 
 @router.get("/get/{pk}")
-async def get_one(pk: int, session: AsyncSession = Depends(get_async_session)):
+async def get_one(pk: str, session: AsyncSession = Depends(get_async_session)):
     return await Controller.get_one(table_name=Customers, pk_attribute=Customers.customer_id, pk=pk, session=session)
 
 

@@ -1,14 +1,19 @@
 from httpx import AsyncClient
 
+APPS = "categories"
+TABLE_ID = "category_id"
+
 
 async def test_get_all(async_client: AsyncClient):
-    response = await async_client.get("/categories/get_all")
+    response = await async_client.get(f"/{APPS}/get_all")
     assert response.status_code == 200
 
 
 async def test_get_one(async_client: AsyncClient):
-    for i in range(1, 6):
-        response = await async_client.get(f"/categories/get/{i}")
+    objects = await async_client.get(f"/{APPS}/get_all")
+    for obj in objects.json():
+        customers = obj[TABLE_ID]
+        response = await async_client.get(f"/{APPS}/get/{customers}")
         assert response.status_code == 200
 
 

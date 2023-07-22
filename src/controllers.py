@@ -13,7 +13,7 @@ class Controller:
     """
 
     @staticmethod
-    async def get_one(table_name: DeclarativeMeta, pk_attribute: Mapped, pk: int, session: Session | AsyncSession):
+    async def get_one(table_name: DeclarativeMeta, pk_attribute: Mapped, pk: int | str, session: Session | AsyncSession):
         """Returns the element of the table whose pk is equal to the given one"""
         try:
             query = select(table_name).where(pk_attribute == pk)
