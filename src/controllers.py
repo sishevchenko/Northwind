@@ -6,15 +6,19 @@ from pydantic import BaseModel
 
 
 class Controller:
-    """"""
+    """
+    CRUD operations controllers
+    methods:
+    get_one, get_all, create, update, delete
+    """
 
     @staticmethod
     async def get_one(table_name: DeclarativeMeta, pk_attribute: Mapped, pk: int, session: Session | AsyncSession):
-        """"""
+        """Returns the element of the table whose pk is equal to the given one"""
         try:
             query = select(table_name).where(pk_attribute == pk)
-            res = await session.execute(query)
-            return res.scalars().all()
+            obj = await session.execute(query)
+            return obj.scalars().all()
         except Exception as ex:
             raise HTTPException(status_code=200, detail={
                 "status": "error",
@@ -24,11 +28,11 @@ class Controller:
 
     @staticmethod
     async def get_all(table_name: DeclarativeMeta, session: Session | AsyncSession):
-        """"""
+        """Returns all fields of objects of the passed table"""
         try:
             query = select(table_name)
-            res = await session.execute(query)
-            return res.scalars().all()
+            obj = await session.execute(query)
+            return obj.scalars().all()
         except Exception as ex:
             raise HTTPException(status_code=200, detail={
                 "status": "error",
@@ -39,7 +43,8 @@ class Controller:
     @staticmethod
     async def create(table_name: DeclarativeMeta, value: BaseModel, session: Session | AsyncSession,
                      pk_attribute_key: str | None = None) -> dict:
-        """"""
+        """Creates a new record in the table.
+        When passing the pk_attribute_key parameter, it autogenerate a new pk"""
         try:
             new_obj = value.model_dump()
             if isinstance(pk_attribute_key, str):
@@ -60,7 +65,7 @@ class Controller:
     @staticmethod
     async def update(table_name: DeclarativeMeta, pk_attribute: Mapped, value: BaseModel,
                      session: Session | AsyncSession) -> dict:
-        """"""
+        """Performs an update of the entry specified in pk_attribute"""
         try:
             new_obj = value.model_dump()
             stmt = update(table_name).where(pk_attribute == new_obj[pk_attribute.key]).values(**new_obj).returning(
@@ -78,7 +83,7 @@ class Controller:
     @staticmethod
     async def delete(table_name: DeclarativeMeta, pk_attribute: Mapped, pk: int,
                      session: Session | AsyncSession) -> dict:
-        """"""
+        """Removes the entry specified by pk"""
         try:
             stmt = delete(table_name).where(pk_attribute == pk).returning(table_name)
             obj = await session.execute(stmt)
