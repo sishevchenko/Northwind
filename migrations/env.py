@@ -7,6 +7,7 @@ from sqlalchemy import pool
 from alembic import context
 from pathlib import Path
 
+# Add project dir to sys.path
 sys.path.append(str(Path(__file__).resolve().parent.parent))
 
 from src.config import DB_DRIVER, DB_USER, DB_PASS, DB_HOST, DB_PORT, DB_NAME
