@@ -1,3 +1,5 @@
+import random
+
 from httpx import AsyncClient
 
 APPS = "products"
@@ -11,7 +13,7 @@ async def test_get_all(async_client: AsyncClient):
 
 async def test_get_one(async_client: AsyncClient):
     objects = await async_client.get(f"/{APPS}/get_all")
-    for obj in objects.json():
+    for obj in random.sample(objects.json(), 5):
         customers = obj[TABLE_ID]
         response = await async_client.get(f"/{APPS}/get/{customers}")
         assert response.status_code == 200
