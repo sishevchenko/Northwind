@@ -1,7 +1,7 @@
 from fastapi import HTTPException
 from sqlalchemy import func, select, insert, update, delete
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.orm import Session, DeclarativeMeta, Mapped
+from sqlalchemy.orm import DeclarativeMeta, Mapped
 from pydantic import BaseModel
 
 
@@ -13,7 +13,7 @@ class Controller:
     """
 
     @staticmethod
-    async def get_one(table_name: DeclarativeMeta, pk_attribute: Mapped, pk: int | str, session: Session | AsyncSession):
+    async def get_one(table_name: DeclarativeMeta, pk_attribute: Mapped, pk: int | str, session: AsyncSession):
         """Returns the element of the table whose pk is equal to the given one"""
         try:
             query = select(table_name).where(pk_attribute == pk)
@@ -27,7 +27,7 @@ class Controller:
             })
 
     @staticmethod
-    async def get_all(table_name: DeclarativeMeta, session: Session | AsyncSession):
+    async def get_all(table_name: DeclarativeMeta, session: AsyncSession):
         """Returns all fields of objects of the passed table"""
         try:
             query = select(table_name)
@@ -41,7 +41,7 @@ class Controller:
             })
 
     @staticmethod
-    async def create(table_name: DeclarativeMeta, value: BaseModel, session: Session | AsyncSession,
+    async def create(table_name: DeclarativeMeta, value: BaseModel, session: AsyncSession,
                      pk_attribute_key: str | None = None) -> dict:
         """Creates a new record in the table.
         When passing the pk_attribute_key parameter, it autogenerate a new pk"""
@@ -64,7 +64,7 @@ class Controller:
 
     @staticmethod
     async def update(table_name: DeclarativeMeta, pk_attribute: Mapped, value: BaseModel,
-                     session: Session | AsyncSession) -> dict:
+                     session: AsyncSession) -> dict:
         """Performs an update of the entry specified in pk_attribute"""
         try:
             new_obj = value.model_dump()
@@ -82,7 +82,7 @@ class Controller:
 
     @staticmethod
     async def delete(table_name: DeclarativeMeta, pk_attribute: Mapped, pk: int,
-                     session: Session | AsyncSession) -> dict:
+                     session: AsyncSession) -> dict:
         """Removes the entry specified by pk"""
         try:
             stmt = delete(table_name).where(pk_attribute == pk).returning(table_name)

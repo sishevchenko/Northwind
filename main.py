@@ -4,6 +4,7 @@ from fastapi import FastAPI
 
 from src.config import DEBUG, API_VERSION, API_HOST, API_PORT, BASE_DIR
 
+from src.auth.router import router as auth_router
 from src.employees.router import router as employees_router
 from src.categories.router import router as categories_router
 from src.customers.router import router as customers_router
@@ -26,6 +27,7 @@ async def redirect():
     return fastapi.responses.RedirectResponse(
         "/docs#")
 
+app.include_router(auth_router)
 app.include_router(categories_router)
 app.include_router(customers_router)
 app.include_router(employees_router)
