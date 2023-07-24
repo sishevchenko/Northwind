@@ -1,7 +1,8 @@
 import fastapi
+import uvicorn
 from fastapi import FastAPI
 
-from src.config import DEBUG, API_VERSION
+from src.config import DEBUG, API_VERSION, API_HOST, API_PORT, BASE_DIR
 
 from src.employees.router import router as employees_router
 from src.categories.router import router as categories_router
@@ -34,3 +35,12 @@ app.include_router(products_router)
 app.include_router(region_router)
 app.include_router(shippers_router)
 app.include_router(suppliers_router)
+
+
+if __name__ == "__main__":
+    try:
+        uvicorn.run(app, host=API_HOST, port=API_PORT)
+    except KeyboardInterrupt as ex:
+        print(ex)
+    except Exception as ex:
+        print(ex)

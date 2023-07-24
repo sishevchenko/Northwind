@@ -13,7 +13,9 @@ async def test_get_all(async_client: AsyncClient):
 
 async def test_get_one(async_client: AsyncClient):
     objects = await async_client.get(f"/{APPS}/get_all")
-    for obj in random.sample(objects.json(), 5):
+    objects = objects.json()
+    test_num = len(objects) // 2 if len(objects) <= 15 else random.randint(5, 10)
+    for obj in random.sample(objects, test_num):
         customers = obj[TABLE_ID]
         response = await async_client.get(f"/{APPS}/get/{customers}")
         assert response.status_code == 200
